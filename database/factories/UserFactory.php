@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserFactory extends Factory
 {
@@ -15,25 +15,16 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            'id_user' => $this->faker->unique()->userName,
+            'first_name' => $this->faker->firstName,
+            'middle_name' => $this->faker->optional()->firstName,
+            'last_name' => $this->faker->lastName,
+            'second_last_name' => $this->faker->optional()->lastName,
+            'password' => Hash::make('password'), // Usar Hash::make para hashear la contraseña
+            'phone_number' => $this->faker->unique()->numberBetween(1000000000, 9999999999),
+            'user_type' => $this->faker->randomElement(['driver', 'passenger']),
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    public function unverified()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'email_verified_at' => null,
-            ];
-        });
-    }
+
 }
