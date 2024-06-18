@@ -9,7 +9,7 @@ class DriversTableSeeder extends Seeder
 {
     public function run()
     {
-        Driver::factory()->count(10)->create();
+        Driver::factory()->count(2)->create();
     }
 }
 
