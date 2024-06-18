@@ -23,7 +23,12 @@ class ApiController extends Controller
         return response()->json($Trips);
     }
 
-    
+    public function ObtenerViaje()
+    {
+        $Trips = Trip::all();
+
+        return response()->json($Trips);
+    }
 
 
 
