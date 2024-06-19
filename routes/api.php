@@ -28,6 +28,6 @@ Route::get('/ObtenerPasajeros',[ApiController::class,'ObtenerPasajeros']);
 Route::post('/CrearUsuario',[ApiController::class,'CrearUsuario']);
 Route::post('/acceptTrip', [ApiController::class, 'acceptTrip']);
 Route::post('/CrearVehiculo', [ApiController::class, 'CrearVehiculo']);
-Route::get('/ObtenerDriver',[ApiController::class,'ObtenerDriver']);
 Route::get('/ObtenerVehiculos',[ApiController::class,'ObtenerVehiculos']);
+Route::get('/ObtenerViajesEnEspera',[ApiController::class,'ObtenerViajesEnEspera']);
 

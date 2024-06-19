@@ -22,12 +22,14 @@ class ApiController extends Controller
 
         return response()->json($Trips);
     }
-    public function ObtenerDriver()
-    {
-        $Driver = Driver::all();
 
-        return response()->json($Driver);
+    public function ObtenerViajesEnEspera()
+    {
+        $Trips = Trip::where('trip_status', 'En espera')->get();
+
+        return response()->json($Trips);
     }
+
     public function ObtenerVehiculos()
     {
         $vehicles = Vehicle::all();
