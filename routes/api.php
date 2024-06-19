@@ -22,7 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::get('/ObtenerViajes',[ApiController::class,'ObtenerViajes']);
-Route::post('/trips/accept', [ApiController::class, 'acceptTrip']);
+Route::get('/ObtenerUsuarios',[ApiController::class,'ObtenerUsuarios']);
+Route::get('/ObtenerConductores',[ApiController::class,'ObtenerConductores']);
+Route::get('/ObtenerPasajeros',[ApiController::class,'ObtenerPasajeros']);
+Route::post('/CrearUsuario',[ApiController::class,'CrearUsuario']);
+Route::post('/acceptTrip', [ApiController::class, 'acceptTrip']);
 Route::post('/CrearVehiculo', [ApiController::class, 'CrearVehiculo']);
 Route::get('/ObtenerDriver',[ApiController::class,'ObtenerDriver']);
 Route::get('/ObtenerVehiculos',[ApiController::class,'ObtenerVehiculos']);
+

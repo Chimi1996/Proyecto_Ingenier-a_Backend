@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Driver extends Model
 {
@@ -30,5 +31,17 @@ class Driver extends Model
     public function trips()
     {
         return $this->hasMany(Trip::class, 'id_driver', 'id_driver');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id_driver)) {
+                // Generar un valor único (por ejemplo, un UUID)
+                $model->id_driver = Str::uuid()->toString();
+            }
+        });
     }
 }
