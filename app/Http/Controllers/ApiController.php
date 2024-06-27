@@ -10,7 +10,6 @@ use App\Models\Trip;
 use App\Models\User;
 use App\Models\Vehicle;
 use App\Models\VehicleDetail;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Twilio\Rest\Client;
 
@@ -29,6 +28,13 @@ class ApiController extends Controller
         $Trips = Trip::where('trip_status', 'En espera')->get();
 
         return response()->json($Trips);
+    }
+
+    public function ObtenerPasajeroPorTelefono(Request $request)
+    {
+        $Passenger = Passenger::where('phone_number', $request->input('phone_number'))->get();
+
+        return response()->json($Passenger);
     }
 
     public function ObtenerVehiculos()
@@ -100,9 +106,9 @@ class ApiController extends Controller
             $user->middle_name = $middle_name;
             $user->last_name = $last_name;
             $user->second_last_name = $second_last_name;
-            $User->password = $password;
-            $User->user_type = $user_type;
-            $User->save();
+            $user->password = $password;
+            $user->user_type = $user_type;
+            $user->save();
 
             if ($user_type === 'driver') {
                 $Driver = Driver::factory()->create();
@@ -126,9 +132,10 @@ class ApiController extends Controller
     public function CrearVehiculo(Request $request)
     {
         try {
+            $Driver = Driver::where('phone_number', $request->input('phone_number'))->get();
 
             $license_plate = $request->input('license_plate');
-            $id_driver = $request->input('id_driver');
+            $id_driver = $Driver->id_driver;
             $brand = $request->input('brand');
             $model = $request->input('model');
             $year = $request->input('year');
@@ -150,6 +157,35 @@ class ApiController extends Controller
             $vehicleDetail->save();
 
             return response()->json(['message' => 'Vehículo y detalles creados con éxito'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error en el servidor: ' . $e->getMessage()], 500);
+        }
+    }
+
+
+    public function CrearViaje(Request $request)
+    {
+        try {
+
+            $Passenger = $this-> ObtenerPasajeroPorTelefono($request);
+
+            if (!$Passenger) {
+                return response()->json(['error' => 'Pasajero no encontrado'], 404);
+            }
+            
+            $start_point = $request->input('start_point');
+            $end_point = $request->input('end_point');
+            
+            $trip = new trip();
+            $trip->id_passenger = $Passenger-> id_passenger;
+            $trip->start_point = $start_point;
+            $trip->end_point = $end_point;
+            $trip->start_datetime = now();
+            $trip->fare = 2000;
+            $trip->trip_status = 'En espera';
+            $trip->save();
+
+            return response()->json(['message' => 'Viaje creado con éxito'], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error en el servidor: ' . $e->getMessage()], 500);
         }
