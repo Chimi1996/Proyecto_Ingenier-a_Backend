@@ -33,7 +33,7 @@ return [
     'sid' => env('TWILIO_SID'),
     'token' => env('TWILIO_TOKEN'),
     'verify' => false, // Deshabilitar la verificación del certificado SSL (solo para desarrollo)
-],
+    ],
 
 
 ];

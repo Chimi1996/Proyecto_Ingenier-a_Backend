@@ -276,4 +276,29 @@ class ApiController extends Controller
             return response()->json(['error' => 'Código de verificación incorrecto'], 400);
         }
     }
+
+    public function login(Request $request)
+    {
+        // Validar los datos de entrada
+        $validator = Validator::make($request->all(), [
+            'phone_number' => 'required|string|max:20',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $phoneNumber = $request->input('phone_number');
+
+        $user = User::where('phone_number', $phoneNumber)->first();
+
+        if (!$user) {
+            return response()->json(['error' => 'Usuario no encontrado'], 404);
+        }
+
+        return response()->json([
+            'message' => 'Inicio de sesión exitoso',
+            'user' => $user
+        ]);
+    }
 }
