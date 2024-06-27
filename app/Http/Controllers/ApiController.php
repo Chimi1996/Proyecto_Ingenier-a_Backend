@@ -25,14 +25,14 @@ class ApiController extends Controller
 
     public function ObtenerViajesEnEspera()
     {
-        $Trips = Trip::where('trip_status', 'En espera')->get();
+        $Trips = Trip::where('trip_status', 'En espera')->first();
 
         return response()->json($Trips);
     }
 
     public function ObtenerPasajeroPorTelefono(Request $request)
     {
-        $Passenger = Passenger::where('phone_number', $request->input('phone_number'))->get();
+        $Passenger = Passenger::where('phone_number', $request->input('phone_number'))->first();
 
         return response()->json($Passenger);
     }
@@ -92,7 +92,7 @@ class ApiController extends Controller
     public function CrearUsuario(Request $request)
     {
         try {
-            $phone_number = $request->input('phone_number');
+            $user = user::where('phone_number', $request->input('phone_number'))->first();
             $first_name = $request->input('first_name');
             $middle_name = $request->input('middle_name');
             $last_name = $request->input('last_name');
@@ -100,8 +100,6 @@ class ApiController extends Controller
             $password = $request->input('password');
             $user_type = $request->input('user_type');
 
-            $user = new User();
-            $user->phone_number = $phone_number;
             $user->first_name = $first_name;
             $user->middle_name = $middle_name;
             $user->last_name = $last_name;
@@ -112,11 +110,11 @@ class ApiController extends Controller
 
             if ($user_type === 'driver') {
                 $Driver = Driver::factory()->create();
-                $Driver->phone_number = $phone_number;
+                $Driver->phone_number = $user->phone_number;
                 $Driver->save();
             }else {
                 $Passenger = Passenger::factory()->create();
-                $Passenger->phone_number = $phone_number;
+                $Passenger->phone_number = $user->phone_number;
                 $Passenger->save();
             }
             

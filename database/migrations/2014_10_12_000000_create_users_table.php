@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('second_last_name', 20)->nullable();
             $table->string('password', 20)->nullable();
             
-            $table->string('country_code', 20);
+            $table->string('country_code', 20)->nullable();
             $table->string('authy_id', 20)->nullable(); // El código que se genera para validar el número
             $table->boolean('verified')->default(false);
             
