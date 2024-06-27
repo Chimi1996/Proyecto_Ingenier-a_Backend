@@ -15,7 +15,7 @@ class DriverFactory extends Factory
     {
         return [
             'id_driver' => $this->faker->unique()->userName,
-            'id_user' => \App\Models\User::factory(),
+            'phone_number' => \App\Models\User::factory(),
             'driver_current_location' => $this->faker->address,
         ];
     }

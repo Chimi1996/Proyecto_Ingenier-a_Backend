@@ -15,12 +15,12 @@ class Passenger extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id_passenger', 'id_user', 'passenger_current_location'
+        'id_passenger', 'phone_number', 'passenger_current_location'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id_user');
+        return $this->belongsTo(User::class, 'phone_number', 'phone_number');
     }
 
     public function trips()

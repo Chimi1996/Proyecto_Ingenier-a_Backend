@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\User;
+use App\Models\Vehicle;
+use App\Models\Trip;
 
 class Driver extends Model
 {
@@ -15,12 +18,12 @@ class Driver extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'id_driver', 'id_user', 'driver_current_location'
+        'id_driver', 'phone_number', 'driver_current_location'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user', 'id_user');
+        return $this->belongsTo(User::class, 'phone_number', 'phone_number');
     }
 
     public function vehicles()

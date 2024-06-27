@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\smsController;
 use App\Http\Controllers\ApiController;
 
 /*
@@ -31,3 +31,5 @@ Route::post('/CrearVehiculo', [ApiController::class, 'CrearVehiculo']);
 Route::get('/ObtenerVehiculos',[ApiController::class,'ObtenerVehiculos']);
 Route::get('/ObtenerViajesEnEspera',[ApiController::class,'ObtenerViajesEnEspera']);
 
+Route::post('/sendSms',[ApiController::class, 'sendSms']);
+Route::post('/verifycode', [ApiController::class, 'verifyCode']);
