@@ -11,8 +11,8 @@ class CreateDriversTable extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->string('id_driver', 20)->primary();
-            $table->string('phone_number', 20);
-            $table->string('driver_current_location', 50);
+            $table->string('phone_number', 20)->nullable();
+            $table->string('driver_current_location', 50)->nullable();
             $table->foreign('phone_number')->references('phone_number')->on('users');
             $table->timestamps();
         });
