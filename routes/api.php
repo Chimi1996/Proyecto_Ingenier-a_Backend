@@ -34,3 +34,4 @@ Route::get('/ObtenerViajesEnEspera',[ApiController::class,'ObtenerViajesEnEspera
 Route::post('/sendSms',[ApiController::class, 'sendSms']);
 Route::post('/verifycode', [ApiController::class, 'verifyCode']);
 Route::post('/login', [ApiController::class, 'login']);
+Route::post('/CrearViaje',[ApiController::class, 'CrearViaje']);

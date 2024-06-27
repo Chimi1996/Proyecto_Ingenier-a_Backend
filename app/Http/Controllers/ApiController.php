@@ -132,7 +132,7 @@ class ApiController extends Controller
     public function CrearVehiculo(Request $request)
     {
         try {
-            $Driver = Driver::where('phone_number', $request->input('phone_number'))->get();
+            $Driver = Driver::where('phone_number', $request->input('phone_number'))->first();
 
             $license_plate = $request->input('license_plate');
             $id_driver = $Driver->id_driver;
@@ -166,8 +166,8 @@ class ApiController extends Controller
     public function CrearViaje(Request $request)
     {
         try {
-
-            $Passenger = $this-> ObtenerPasajeroPorTelefono($request);
+            $Passenger = new Passenger();
+            $Passenger = Passenger::where('phone_number', $request->input('phone_number'))->first();
 
             if (!$Passenger) {
                 return response()->json(['error' => 'Pasajero no encontrado'], 404);
@@ -176,8 +176,8 @@ class ApiController extends Controller
             $start_point = $request->input('start_point');
             $end_point = $request->input('end_point');
             
-            $trip = new trip();
-            $trip->id_passenger = $Passenger-> id_passenger;
+            $trip = Trip::factory()->create();
+            $trip->id_passenger = $Passenger->id_passenger;
             $trip->start_point = $start_point;
             $trip->end_point = $end_point;
             $trip->start_datetime = now();
