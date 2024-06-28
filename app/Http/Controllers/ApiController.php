@@ -30,11 +30,11 @@ class ApiController extends Controller
         return response()->json($Trips);
     }
 
-    public function ObtenerPasajeroPorTelefono(Request $request)
+    public function ObtenerTipoDeUsuario(Request $request)
     {
-        $Passenger = Passenger::where('phone_number', $request->input('phone_number'))->first();
+        $user = user::where('phone_number', $request->input('phone_number'))->first();
 
-        return response()->json($Passenger);
+        return response()->json($user->user_type);
     }
 
     public function ObtenerVehiculos()

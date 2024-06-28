@@ -66,6 +66,13 @@ it('can create a user', function () {
 
     $this->assertDatabaseHas('users', ['phone_number' => '1234567890']);
     $this->assertDatabaseHas('drivers', ['phone_number' => '1234567890']);
+
+    $this->assertDatabaseHas('users', [
+        'phone_number' => '1234567890',
+        'first_name' => 'John',
+        'last_name' => 'Doe',
+        'user_type' => 'driver'
+    ]);
 });
 
 it('can create a vehicle', function () {

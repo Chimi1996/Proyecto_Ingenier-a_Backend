@@ -30,6 +30,7 @@ Route::post('/acceptTrip', [ApiController::class, 'acceptTrip']);
 Route::post('/CrearVehiculo', [ApiController::class, 'CrearVehiculo']);
 Route::get('/ObtenerVehiculos',[ApiController::class,'ObtenerVehiculos']);
 Route::get('/ObtenerViajesEnEspera',[ApiController::class,'ObtenerViajesEnEspera']);
+Route::post('/ObtenerTipoDeUsuario',[ApiController::class,'ObtenerTipoDeUsuario']);
 
 Route::post('/sendSms',[ApiController::class, 'sendSms']);
 Route::post('/verifycode', [ApiController::class, 'verifyCode']);
