@@ -45,27 +45,35 @@ class ApiController extends Controller
     }
   
     public function acceptTrip(Request $request)
-    {
-        try {
-            $request->validate([
-                'id_trip' => 'required|string',
-                'id_driver' => 'required|string',
-            ]);  
-            $trip = Trip::find($request->id_trip);
+{
+    try {
+        $request->validate([
+            'id_trip' => 'required|string',
+            'phone_number' => 'required|string|max:20',
+        ]);  
 
-            if (!$trip) {
-                return response()->json(['error' => 'Trip not found'], 404);
-            }
+        $driver = Driver::where('phone_number', $request->phone_number)->first();
 
-            $trip->id_driver = $request->id_driver;
-            $trip->trip_status = 'Accepted';
-            $trip->save();
-
-            return response()->json(['message' => 'Viaje aceptado exitosamente', 'trip' => $trip], 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
+        if (!$driver) {
+            return response()->json(['error' => 'Driver not found'], 404);
         }
+
+        $trip = Trip::find($request->id_trip);
+
+        if (!$trip) {
+            return response()->json(['error' => 'Trip not found'], 404);
+        }
+
+        $trip->id_driver = $driver->id_driver;
+        $trip->trip_status = 'Accepted';
+        $trip->save();
+
+        return response()->json(['message' => 'Viaje aceptado exitosamente', 'trip' => $trip], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Server error: ' . $e->getMessage()], 500);
     }
+}
+
   
   
     public function ObtenerUsuarios()
