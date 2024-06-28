@@ -15,7 +15,7 @@ class PassengerFactory extends Factory
     {
         return [
             'id_passenger' => $this->faker->unique()->userName,
-            'phone_number' => \App\Models\User::factory(),
+            'phone_number' => \App\Models\User::factory()->create()->phone_number,
             'passenger_current_location' => $this->faker->address,
         ];
     }

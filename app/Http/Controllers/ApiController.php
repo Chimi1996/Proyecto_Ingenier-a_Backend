@@ -93,6 +93,10 @@ class ApiController extends Controller
     {
         try {
             $user = user::where('phone_number', $request->input('phone_number'))->first();
+            if (!$user) {
+                $user = new User();
+                $user->phone_number = $request->input('phone_number');
+            }
             $first_name = $request->input('first_name');
             $middle_name = $request->input('middle_name');
             $last_name = $request->input('last_name');
@@ -131,7 +135,10 @@ class ApiController extends Controller
     {
         try {
             $Driver = Driver::where('phone_number', $request->input('phone_number'))->first();
-
+            if (!$Driver) {
+                $Driver = new Driver();
+                $Driver->phone_number = $request->input('phone_number');
+            }
             $license_plate = $request->input('license_plate');
             $id_driver = $Driver->id_driver;
             $brand = $request->input('brand');
