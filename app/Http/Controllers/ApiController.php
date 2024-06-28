@@ -25,7 +25,7 @@ class ApiController extends Controller
 
     public function ObtenerViajesEnEspera()
     {
-        $Trips = Trip::where('trip_status', 'En espera')->first();
+        $Trips = Trip::where('trip_status', 'En espera')->get();
 
         return response()->json($Trips);
     }
